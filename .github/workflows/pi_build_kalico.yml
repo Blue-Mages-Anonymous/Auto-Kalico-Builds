@@ -1,4 +1,4 @@
-name: Pi Build Klipper Firmware
+name: Pi Build Kalico Firmware
 
 on:
   schedule:
@@ -20,14 +20,14 @@ jobs:
       with:
         fetch-depth: 0
     
-    - name: Check for new Klipper version
+    - name: Check for new Kalico version
       id: check_version
       run: |
-        git clone https://github.com/Klipper3d/klipper.git temp_klipper
-        cd temp_klipper
+        git clone https://github.com/KalicoCrew/kalico.git temp_kalico
+        cd temp_kalico
         LATEST_TAG=$(git describe --tags --always)
         cd ..
-        rm -rf temp_klipper
+        rm -rf temp_kalico
         CURRENT_DATE=$(date +"%Y-%m-%d")
         
         # Check if we already have this version
@@ -60,8 +60,8 @@ jobs:
     - name: Build firmware
       id: build
       run: |
-            chmod +x ./build_klipper.sh
-            ./build_klipper.sh
+            chmod +x ./build_kalico.sh
+            ./build_kalico.sh
             # Capture the whole content of board_list.txt including formatting
             BOARD_LIST=$(cat board_list.txt)
             # Use delimiter syntax to handle multi-line strings
@@ -83,9 +83,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ needs.check_version.outputs.version }}
-        release_name: Klipper ${{ needs.check_version.outputs.version }} Firmware Builds
+        release_name: Kalico ${{ needs.check_version.outputs.version }} Firmware Builds
         body: |
-          Automated firmware builds for Klipper version ${{ needs.check_version.outputs.version }}
+          Automated firmware builds for Kalico version ${{ needs.check_version.outputs.version }}
 
           ```
           ${{ steps.build.outputs.board_list }}
