@@ -59,10 +59,10 @@ build_firmware() {
     # Check if we need .uf2 or .bin
     if [[ "$board_config" == *"pico"* ]]; then
         # For RP2040 boards
-        cp out/kalico.uf2 "$FIRMWARE_OUTPUT_DIR/${board_config}.uf2"
+        cp out/klipper.uf2 "$FIRMWARE_OUTPUT_DIR/${board_config}.uf2"
     else
         # For other boards
-        cp out/kalico.bin "$FIRMWARE_OUTPUT_DIR/${board_config}.bin"
+        cp out/klipper.bin "$FIRMWARE_OUTPUT_DIR/${board_config}.bin"
     fi
 }
 
